@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#123b32">
+  <title>CivicEye — Smart City Reporter</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="CivicEye home">
+      <span class="brand-mark">◎</span><span>Civic<span class="brand-accent">Eye</span><small data-i18n="tagline">Your city. Your voice.</small></span>
+    </a>
+    <div class="top-actions">
+      <label class="sr-only" for="language" data-i18n="language">Language</label>
+      <select id="language" aria-label="Choose language">
+        <option value="en">English</option><option value="ta">தமிழ்</option><option value="te">తెలుగు</option>
+      </select>
+      <button class="menu-button" id="menuButton" aria-label="Open menu">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="live-dot"></span><span data-i18n="eyebrow">COMMUNITY-POWERED CIVIC CARE</span></div>
+        <h1 data-i18n="heroTitle">See a problem?<br><em>Help fix it.</em></h1>
+        <p data-i18n="heroText">Report potholes, overflowing garbage, broken streetlights and other local issues. A better neighbourhood starts with one report.</p>
+        <a class="primary-button" href="#reportForm" data-i18n="reportNow">＋ Report an issue</a>
+        <div class="hero-note"><span>✓</span> <span data-i18n="note">Simple, accessible and multilingual</span></div>
+      </div>
+      <div class="hero-art" aria-label="Illustration of a clean, connected city">
+        <div class="sun"></div><div class="cloud cloud-one"></div><div class="cloud cloud-two"></div>
+        <div class="city-label"><span class="pin">●</span><span data-i18n="cityLabel">Your neighbourhood matters</span></div>
+        <div class="building b1"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="building b2"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="building b3"><i></i><i></i><i></i><i></i></div>
+        <div class="tree tree-one"></div><div class="tree tree-two"></div>
+        <div class="road"><span class="road-line"></span></div>
+        <div class="floating-card"><span class="check-icon">✓</span><span><b data-i18n="cityBetter">A better city</b><small data-i18n="oneReport">starts with one report</small></span></div>
+      </div>
+    </section>
+
+    <section class="stats" aria-label="Report summary">
+      <div class="stat"><span class="stat-icon">▤</span><div><strong id="totalCount">0</strong><small data-i18n="totalReports">Reports submitted</small></div></div>
+      <div class="stat"><span class="stat-icon orange">◷</span><div><strong id="openCount">0</strong><small data-i18n="openIssues">Open issues</small></div></div>
+      <div class="stat"><span class="stat-icon blue">✓</span><div><strong id="resolvedCount">0</strong><small data-i18n="resolvedIssues">Resolved issues</small></div></div>
+    </section>
+
+    <section class="content-grid">
+      <section class="panel report-panel" id="report">
+        <div class="section-heading">
+          <div><span class="section-kicker" data-i18n="takeAction">TAKE ACTION</span><h2 data-i18n="reportTitle">Report a civic issue</h2></div>
+          <span class="heading-icon">＋</span>
+        </div>
+        <p class="muted" data-i18n="reportSubtitle">Share a few details so the community can understand the problem.</p>
+        <form id="reportForm">
+          <div class="field">
+            <label for="category" data-i18n="issueCategory">Issue category <b>*</b></label>
+            <select id="category" required>
+              <option value="" data-i18n="chooseCategory">Choose a category</option>
+              <option value="Pothole" data-i18n="pothole">Road / pothole</option>
+              <option value="Garbage" data-i18n="garbage">Garbage / waste</option>
+              <option value="Streetlight" data-i18n="streetlight">Broken streetlight</option>
+              <option value="Water" data-i18n="water">Water leakage</option>
+              <option value="Drainage" data-i18n="drainage">Drainage / flooding</option>
+              <option value="Other" data-i18n="other">Other issue</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="location" data-i18n="location">Location <b>*</b></label>
+            <div class="input-with-button"><input id="location" maxlength="120" placeholder="Street, area or landmark" required data-i18n-placeholder="locationPlaceholder"><button type="button" id="locateButton" class="icon-button" title="Use my location" aria-label="Use my location">⌖</button></div>
+            <small class="field-hint" data-i18n="locationHint">You can type the location or try device location.</small>
+          </div>
+          <div class="field">
+            <label for="description" data-i18n="description">Description <b>*</b></label>
+            <textarea id="description" rows="4" maxlength="600" required placeholder="Explain what happened and where..." data-i18n-placeholder="descriptionPlaceholder"></textarea>
+            <div class="counter"><span data-i18n="beSpecific">Be clear and specific.</span><span id="charCount">0/600</span></div>
+          </div>
+          <div class="field">
+            <label data-i18n="photo">Photo (optional)</label>
+            <label class="upload-box" for="photo"><span class="upload-icon">↥</span><span><b data-i18n="uploadTitle">Add a photo</b><small data-i18n="uploadHint">JPG, PNG or WebP · up to 3 MB</small></span><span class="upload-action" data-i18n="browse">Browse</span></label>
+            <input id="photo" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+            <div id="photoPreview" class="photo-preview" hidden></div>
+          </div>
+          <button class="primary-button submit-button" type="submit"><span data-i18n="submitReport">Submit report</span><span>→</span></button>
+          <p class="privacy-note">🔒 <span data-i18n="privacy">Reports are saved on this project server. This demo does not automatically notify municipal authorities.</span></p>
+          <div id="formMessage" class="form-message" role="status" aria-live="polite"></div>
+        </form>
+      </section>
+
+      <section class="panel feed-panel">
+        <div class="section-heading">
+          <div><span class="section-kicker" data-i18n="communityBoard">COMMUNITY BOARD</span><h2 data-i18n="recentReports">Recent reports</h2></div>
+          <span class="heading-icon">⌁</span>
+        </div>
+        <p class="muted" data-i18n="feedSubtitle">View community reports and follow their status.</p>
+        <div class="feed-controls">
+          <label class="sr-only" for="filterCategory" data-i18n="filterCategory">Filter by category</label>
+          <select id="filterCategory">
+            <option value="all" data-i18n="allIssues">All issues</option>
+            <option value="Pothole" data-i18n="pothole">Road / pothole</option>
+            <option value="Garbage" data-i18n="garbage">Garbage / waste</option>
+            <option value="Streetlight" data-i18n="streetlight">Broken streetlight</option>
+            <option value="Water" data-i18n="water">Water leakage</option>
+            <option value="Drainage" data-i18n="drainage">Drainage / flooding</option>
+            <option value="Other" data-i18n="other">Other issue</option>
+          </select>
+          <label class="sr-only" for="filterStatus" data-i18n="filterStatus">Filter by status</label>
+          <select id="filterStatus"><option value="all" data-i18n="allStatuses">All statuses</option><option value="Open" data-i18n="open">Open</option><option value="Resolved" data-i18n="resolved">Resolved</option></select>
+        </div>
+        <div id="reportList" class="report-list"></div>
+        <div id="emptyState" class="empty-state"><span>☘</span><h3 data-i18n="emptyTitle">A cleaner city starts here</h3><p data-i18n="emptyText">No reports yet. Submit the first one and make your neighbourhood visible.</p></div>
+        <div class="feed-footer"><span id="connectionStatus">Connecting to CivicEye server…</span><button id="adminToggle" class="text-button" type="button">Admin dashboard</button></div>
+      </section>
+    </section>
+
+    <section class="how-section">
+      <div class="how-intro"><span class="section-kicker" data-i18n="howItWorks">HOW IT WORKS</span><h2 data-i18n="smallSteps">Small steps.<br><em>Real change.</em></h2><p data-i18n="howText">Good civic spaces are built when people notice, report and follow up.</p></div>
+      <div class="step-card"><span>01</span><div class="step-icon">⌕</div><h3 data-i18n="step1Title">Spot an issue</h3><p data-i18n="step1Text">Notice something that needs attention in your area.</p></div>
+      <div class="step-card"><span>02</span><div class="step-icon">↗</div><h3 data-i18n="step2Title">Share a report</h3><p data-i18n="step2Text">Add the location, a clear description and a photo if useful.</p></div>
+      <div class="step-card"><span>03</span><div class="step-icon">✓</div><h3 data-i18n="step3Title">Track progress</h3><p data-i18n="step3Text">Follow reports here and mark demo issues as resolved.</p></div>
+    </section>
+    <section class="panel admin-panel" id="adminPanel" hidden>
+      <div class="section-heading"><div><span class="section-kicker">ADMINISTRATION</span><h2>Admin dashboard</h2></div><button id="adminClose" class="small-button" type="button">Close</button></div>
+      <p class="muted">Sign in to update report status or remove spam. Admin access is protected by a server-side password.</p>
+      <form id="adminLoginForm" class="admin-login">
+        <div class="field"><label for="adminUsername">Username</label><input id="adminUsername" autocomplete="username" required maxlength="80" value="admin"></div>
+        <div class="field"><label for="adminPassword">Password</label><input id="adminPassword" type="password" autocomplete="current-password" required></div>
+        <button class="primary-button" type="submit">Sign in</button><div id="adminMessage" class="form-message" role="status" aria-live="polite"></div>
+      </form>
+      <div id="adminTools" hidden><div class="admin-toolbar"><strong id="adminSummary">Reports</strong><button id="adminLogout" class="small-button" type="button">Sign out</button></div><div id="adminReportList" class="report-list"></div></div>
+    </section>
+  </main>
+
+  <footer><a class="brand footer-brand" href="#"><span class="brand-mark">◎</span><span>Civic<span class="brand-accent">Eye</span></span></a><p data-i18n="footerText">Built for communities that care. A student front-end project.</p><span>© <span id="year"></span> CivicEye</span></footer>
+  <script src="script.js"></script>
+</body>
+</html>
